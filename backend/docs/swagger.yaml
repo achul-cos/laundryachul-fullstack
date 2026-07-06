@@ -1,0 +1,138 @@
+basePath: /api
+host: localhost:8080
+info:
+  contact: {}
+  description: API untuk manajemen laundry - Flutter Test Project
+  title: Mewing Laundry API
+  version: "1.0"
+paths:
+  /customers:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Berhasil mengambil data
+          schema:
+            type: object
+        "401":
+          description: Token tidak valid
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Dapatkan daftar pelanggan
+      tags:
+      - Customers
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Customer data
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Pelanggan berhasil ditambahkan
+          schema:
+            type: object
+        "400":
+          description: Data tidak valid
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Tambah pelanggan baru
+      tags:
+      - Customers
+  /customers/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Pelanggan berhasil dihapus
+          schema:
+            type: object
+        "404":
+          description: Pelanggan tidak ditemukan
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Delete pelanggan
+      tags:
+      - Customers
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated customer data
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Pelanggan berhasil diperbarui
+          schema:
+            type: object
+        "404":
+          description: Pelanggan tidak ditemukan
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Update pelanggan
+      tags:
+      - Customers
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login dengan email dan password, return JWT token
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login berhasil
+          schema:
+            type: object
+        "401":
+          description: Email atau password salah
+          schema:
+            type: object
+      summary: Login pengguna
+      tags:
+      - Auth
+swagger: "2.0"
